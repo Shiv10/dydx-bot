@@ -5,7 +5,7 @@ from decouple import config
 MODE = "DEVELOPMENT"
 
 # Close all open positions and orders
-ABORT_ALL_POSITIONS = False
+ABORT_ALL_POSITIONS = True
 
 # Find co-integrated pairs
 FIND_COINTEGRATED = True
@@ -40,6 +40,6 @@ DYDX_API_PASSPHRASE = config("DYDX_API_PASSPHRASE")
 HTTP_PROVIDER = config("HTTP_PROVIDER")
 
 # HOST - Export
-HOST = API_HOST_MAINNET if MODE=="PRODUCTION" else API_HOST_GOERLI      
+HOST = API_HOST_MAINNET if MODE=="PRODUCTION" else API_HOST_GOERLI
 
 # remember to add production keys on deployment
