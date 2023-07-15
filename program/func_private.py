@@ -4,6 +4,11 @@ from pprint import pprint
 from func_utils import format_number
 from constants import ETHEREUM_ADDRESS
 
+# check order status
+def check_order_status(client, order_id):
+    order = client.private_get_order_by_id(order_id)
+    return order.data["order"]["status"]
+
 # Place market order
 def place_market_order(client, market, side, size, price, reduce_only):
     # Get position id
