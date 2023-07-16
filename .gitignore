@@ -2,3 +2,4 @@
 venv
 /program/__pycache__
 /program/cointegrated_pairs.csv
+/program/bot_agents.json

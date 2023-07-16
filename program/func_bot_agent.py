@@ -131,7 +131,7 @@ class BotAgent:
         
         # print status - opening second order
         print("----")
-        print(f"{self.market_2}: Placing first order")
+        print(f"{self.market_2}: Placing second order")
         print(f"Side: {self.quote_side}, Size: {self.quote_size}, Price: {self.quote_price}")
         print("----")
 
