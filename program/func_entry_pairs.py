@@ -24,6 +24,15 @@ def open_positions(client):
 
     # init containter for BotAgent results
     bot_agents = []
+    # Opening JSON file
+    try:
+        open_positions_file = open("bot_agents.json")
+        open_positions_dict = json.load(open_positions_file)
+        for p in open_positions_dict:
+            bot_agents.append(p)
+    except Exception as e:
+        bot_agents = []
+        
 
     # find zScrore triggers
     for index, row in df.iterrows():
@@ -117,6 +126,7 @@ def open_positions(client):
 
                         # call open trades
                         bot_open_dict = bot_agent.open_trades()
+                        print(bot_open_dict)
 
                         # handle success in opening trades
                         if bot_open_dict["pair_status"] == "LIVE":
@@ -129,7 +139,7 @@ def open_positions(client):
                             print("---")
     
     # save agents
-    print(f"Success: {len(bot_agents)} New Pairs LIVE")
+    print(f"Success: Manage open trades checked")
     if len(bot_agents) > 0:
-        with open("bot_agents_json", "w") as f:
+        with open("bot_agents.json", "w") as f:
             json.dump(bot_agents, f)

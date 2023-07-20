@@ -1,9 +1,10 @@
 from func_connections import connect_dydx
-from constants import ABORT_ALL_POSITIONS, FIND_COINTEGRATED, PLACE_TRADES
+from constants import ABORT_ALL_POSITIONS, FIND_COINTEGRATED, PLACE_TRADES, MANAGE_EXITS
 from func_private import abort_all_positions
 from func_public import construct_market_prices
 from func_cointegration import store_cointegration_results
 from func_entry_pairs import open_positions
+from func_exit_pairs import manage_trade_exits
 
 if __name__ == "__main__":
 
@@ -52,12 +53,21 @@ if __name__ == "__main__":
             print("Error saving cointegrated pairs")
             exit(1)
 
+    while True:
+        if MANAGE_EXITS:
+            try:
+                print("Managing exits..")
+                manage_trade_exits(client)
+            except Exception as e:
+                print(e)
+                print("Error managing positions")
+                exit(1)
 
-    if PLACE_TRADES:
-        try:
-            print("Findind trading opportunities..")
-            open_positions(client)
-        except Exception as e:
-            print(e)
-            print("Error placing trades")
-            exit(1)
+        if PLACE_TRADES:
+            try:
+                print("Findind trading opportunities..")
+                open_positions(client)
+            except Exception as e:
+                print(e.with_traceback())
+                print("Error placing trades")
+                exit(1)
