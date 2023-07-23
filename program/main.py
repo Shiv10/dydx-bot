@@ -9,6 +9,8 @@ from func_messaging import send_message
 
 if __name__ == "__main__":
 
+    send_message("Bot has started")
+
     # connect to client
     try:
         print("Connecting to client")
@@ -16,6 +18,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
         print("Error connecting to client")
+        send_message("Failed to connect to client")
         exit(1)
 
     # abort all open positions
@@ -27,6 +30,7 @@ if __name__ == "__main__":
         except Exception as e:
             print(e)
             print("Error closing all positions")
+            send_message(f"Failed to close all positions\n{e}")
             exit(1)
 
     # find cointegrated pairs
@@ -39,6 +43,7 @@ if __name__ == "__main__":
         except Exception as e:
             print(e)
             print("error fetching market prices")
+            send_message(f"Failed to fetch market prices\n{e}")
             exit(1)
         
 
@@ -48,10 +53,12 @@ if __name__ == "__main__":
             stores_result = store_cointegration_results(df_market_prices)
             if stores_result != "saved":
                 print("Error saving cointegrated pairs")
+                send_message("Failed to save cointegrated pairs")
                 exit(1)
         except Exception as e:
             print(e)
             print("Error saving cointegrated pairs")
+            send_message(f"Failed to save cointegrated pairs\n{e}")
             exit(1)
 
     while True:
@@ -62,6 +69,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 print("Error managing positions")
+                send_message(f"Error managing exits\n{e}")
                 exit(1)
 
         if PLACE_TRADES:
@@ -71,4 +79,5 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e.with_traceback())
                 print("Error placing trades")
+                send_message(f"Error placing trades\n{e}")
                 exit(1)

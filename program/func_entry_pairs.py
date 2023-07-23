@@ -7,6 +7,7 @@ from func_bot_agent import BotAgent
 import pandas as pd
 import json
 from pprint import pprint
+from func_messaging import send_message
 
 # open positions
 def open_positions(client):
@@ -137,6 +138,8 @@ def open_positions(client):
                             # confirm live status
                             print("trade status: live")
                             print("---")
+                            send_message(f"Opened a new trade for {base_market} vs {quote_market}")
+
     
     # save agents
     print(f"Success: Manage open trades checked")
