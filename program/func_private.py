@@ -3,6 +3,7 @@ import time
 from pprint import pprint
 from func_utils import format_number
 from constants import ETHEREUM_ADDRESS
+import json
 
 # get existing open positions
 def is_open_positions(client, market):
@@ -105,7 +106,10 @@ def abort_all_positions(client):
             # append result to closed orders
             close_orders.append(order)
 
-            time.sleep(0.2)
+            bot_agents = []
+            with open("bot_agents.json", "w") as f:
+                json.dump(bot_agents, f)
+
 
         # Return closed orders
         return close_orders
